@@ -17,13 +17,13 @@ Sou estudante de **Análise e Desenvolvimento de Sistemas na FAETERJ**, apaixona
 ## 📌 Projetos e Trabalhos
 > Em breve, este espaço será atualizado com meus primeiros projetos e trabalhos relevantes.
 
-- [Trabalhos acadêmicos da FAETERJ](https://github.com/SEUUSUARIO/FAETERJ)  
+- [Trabalhos acadêmicos da FAETERJ](https://github.com/luizgustavocx/FAETERJ)  
 - Projetos pessoais de estudo e desenvolvimento
 
 ---
 
 ## 📫 Contato
-- LinkedIn: [Meu LinkedIn](https://www.linkedin.com/in/luizgustavocx)  
+- LinkedIn: [Meu LinkedIn]([https://www.linkedin.com/in/luizgustavocx](https://www.linkedin.com/in/luiz-gustavo-coelho-xavier-78bb612b9/?trk=opento_sprofile_details)
 - Email: luizgustavocx1981@gmail.com
 
 ---
