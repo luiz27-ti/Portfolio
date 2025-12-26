@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sucessos de Bilheteira</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Modo Claro */
+        .light-mode {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Modo Escuro */
+        .dark-mode {
+            background-color: #1c1c1c;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            width: 100%;
+        }
+
+        header h1 {
+            color: #e0b030;
+        }
+
+        nav a {
+            margin: 0 1em;
+            color: #e0b030;
+            text-decoration: none;
+        }
+
+        .cinema-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 100vh;
+            background-color: #000;
+            margin: 2em auto;
+            width: 100%;
+            max-width: 1100px;
+            border: 2px solid #333;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+
+        .curtain-left, .curtain-right {
+            width: 20%;
+            background-color: darkred;
+            height: 100%;
+        }
+
+        .screen-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2em;
+            background-color: #111;
+        }
+
+        .screen-content h2 {
+            font-size: 2em;
+            color: #e0b030;
+        }
+
+        .screen-content p {
+            font-size: 1.2em;
+            color: #aaa;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2em;
+            color: white;
+        }
+
+        table th, table td {
+            padding: 0.8em;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #333;
+            color: #e0b030;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #222;
+        }
+
+        footer {
+            background-color: #333;
+            padding: 1em;
+            text-align: center;
+            color: #e0b030;
+        }
+
+        .movie-images {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2em;
+        }
+
+        .movie-images img {
+            width: 250px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease;
+        }
+
+        .movie-images img:hover {
+            transform: scale(1.05);
+        }
+
+        .trailer-section {
+            text-align: center;
+            margin-top: 3em;
+            margin-bottom: 3em;
+        }
+
+        .trailer-section iframe {
+            max-width: 100%;
+            width: 60%;
+            height: 350px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .form-container {
+            background-color: #222;
+            padding: 2em;
+            border-radius: 10px;
+            margin-top: 2em;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 0.5em;
+            color: #e0b030;
+        }
+
+        .form-container textarea {
+            width: 100%;
+            padding: 1em;
+            border-radius: 5px;
+            background-color: #444;
+            color: white;
+            border: none;
+        }
+
+        .form-container button {
+            background-color: #e0b030;
+            color: white;
+            border: none;
+            padding: 1em;
+            margin-top: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #f0c040;
+        }
+
+        .social-media {
+            margin-top: 2em;
+            text-align: center;
+        }
+
+        .social-media a {
+            margin: 0 1em;
+            color: #e0b030;
+            text-decoration: none;
+        }
+
+        .toggle-container {
+            display: flex;
+            justify-content: flex-end;
+            padding: 1em;
+            margin-right: 2em;
+        }
+
+        .toggle-container input {
+            display: none;
+        }
+
+        .toggle-container label {
+            background-color: #333;
+            border-radius: 30px;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 60px;
+            height: 30px;
+            position: relative;
+        }
+
+        /* Adicionando os emojis de sol e lua */
+        .toggle-container label::before {
+            content: "🌙"; /* Lua (escuro) por padrão */
+            position: absolute;
+            left: 5px;
+        }
+
+        .dark-mode .toggle-container label::before {
+            content: "🌙"; /* Lua no modo escuro */
+        }
+
+        .light-mode .toggle-container label::before {
+            content: "🌞"; /* Sol no modo claro */
+        }
+
+        .toggle-container label span {
+            position: absolute;
+            right: 
+            5px;
+        }
+        .movie-images .movie {
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+
+.additional-images {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2em;
+}
+
+.additional-images img {
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease;
+}
+
+.additional-images img:hover {
+    transform: scale(1.05);
+}
+
+/* Sessão Geral */
+.detailed-curiosities {
+    margin: 3em auto;
+    padding: 2em;
+    max-width: 1100px;
+    text-align: center;
+    color: white;
+}
+
+.detailed-curiosities h2 {
+    font-size: 2.5em;
+    margin-bottom: 1.5em;
+    color: #e0b030;
+}
+
+/* Estilo dos Cards */
+.curiosities-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2em;
+    background-color: #333;
+    border-radius: 15px;
+    padding: 1.5em;
+    margin-bottom: 2em;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Conteúdo do Card */
+.curiosities-content {
+    flex: 1;
+    text-align: left;
+}
+
+.curiosities-content h3 {
+    font-size: 1.8em;
+    margin-bottom: 1em;
+    color: #f0c040;
+}
+
+.curiosities-content ul {
+    list-style: disc;
+    padding-left: 1.5em;
+}
+
+.curiosities-content li {
+    margin: 0.5em 0;
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+/* Imagem do Card */
+.curiosities-image img {
+    width: 250px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .curiosities-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .curiosities-content ul {
+        text-align: left;
+    }
+
+    .curiosities-image img {
+        max-width: 80%;
+        margin-bottom: 1em;
+    }
+}
+
+
+    </style>
+</head>
+<body class="dark-mode">
+
+<div class="toggle-container">
+    <input type="checkbox" id="mode-toggle" />
+    <label for="mode-toggle">
+        <span></span>
+    </label>
+</div>
+
+<header>
+    <h1>Sucessos de Bilheteira</h1>
+    <nav>
+        <a href="index.html">Cinema Clássico</a>
+        <a href="naosei.html">Sucessos de Bilheteira</a>
+    </nav>
+</header>
+
+<section class="cinema-screen">
+    <aside class="curtain-left"></aside>
+    <article class="screen-content">
+        <h2>Filmes que mais Fizeram Sucesso</h2>
+        <p>Descubra os filmes que conquistaram o mundo e bateram recordes de bilheteira.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Filme</th>
+                    <th>Ano</th>
+                    <th>Bilheteira</th>
+                    <th>Diretor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Avatar</td>
+                    <td>2009</td>
+                    <td>$2.847B</td>
+                    <td>James Cameron</td>
+                </tr>
+                <tr>
+                    <td>Vingadores: Ultimato</td>
+                    <td>2019</td>
+                    <td>$2.798B</td>
+                    <td>Anthony Russo, Joe Russo</td>
+                </tr>
+                <tr>
+                    <td>Titanic</td>
+                    <td>1997</td>
+                    <td>$2.195B</td>
+                    <td>James Cameron</td>
+                </tr>
+                <tr>
+                    <td>Avatar: O Caminho da Água</td>
+                    <td>2022</td>
+                    <td>$2.320B</td>
+                    <td>James Cameron</td>
+                </tr>
+                <tr>
+                    <td>Star Wars: O Despertar da Força</td>
+                    <td>2019</td>
+                    <td>$2.071B</td>
+                    <td>J.J Abraham</td>
+                </tr>
+                <tr>
+                    <td>Vingadores: Guerra Infinita</td>
+                    <td>2018</td>
+                    <td>$2.052B</td>
+                    <td>Anthony Russo, Joe Russo</td>
+                </tr>
+                <tr>
+                    <td>Homem-Aranha: sem Volta pra Casa</td>
+                    <td>2021</td>
+                    <td>$1.912B</td>
+                    <td>Jon Watts</td>
+                </tr>
+                <tr>
+                    <td>Divertidamente 2</td>
+                    <td>2024</td>
+                    <td>$1.698B</td>
+                    <td>Kelsey Mann</td>
+                </tr>
+                <tr>
+                    <td>Jurassic World</td>
+                    <td>2015</td>
+                    <td>$1.671B</td>
+                    <td>Colin Trevorrow</td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <aside class="curtain-right"></aside>
+</section>
+
+<section class="detailed-curiosities">
+    <h2>Curiosidades dos Maiores Sucessos</h2>
+
+    <!-- Card 1: Titanic -->
+    <div class="curiosities-card">
+        <div class="curiosities-image">
+            <img src="https://br.web.img2.acsta.net/medias/nmedia/18/89/56/94/20055685.jpg" alt="Titanic Poster">
+        </div>
+        <div class="curiosities-content">
+            <h3>Titanic (1997)</h3>
+            <ul>
+                <li>James Cameron fez 12 mergulhos para explorar os destroços do Titanic real.</li>
+                <li>A cena de "I'm the King of the World" foi improvisada por Leonardo DiCaprio.</li>
+                <li>O filme ganhou 11 Oscars, incluindo Melhor Filme e Melhor Diretor.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Card 2: Avatar -->
+    <div class="curiosities-card">
+        <div class="curiosities-image">
+            <img src="https://br.web.img3.acsta.net/medias/nmedia/18/87/30/40/20028676.jpg" alt="Avatar Poster">
+        </div>
+        <div class="curiosities-content">
+            <h3>Avatar (2009)</h3>
+            <ul>
+                <li>James Cameron idealizou Avatar na década de 1990, mas esperou pela tecnologia certa.</li>
+                <li>A criação do mundo de Pandora levou mais de 4 anos de desenvolvimento.</li>
+                <li>Foi o primeiro filme a ultrapassar 2 bilhões de dólares em bilheteira global.</li>
+            </ul>
+        
+        </div>
+    </div>
+
+    <!-- Card 3: Vingadores: Ultimato -->
+    <div class="curiosities-card">
+        <div class="curiosities-image">
+            <img src="https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Endgame_poster.jpg" alt="Avengers Endgame Poster">
+        </div>
+        <div class="curiosities-content">
+            <h3>Vingadores: Ultimato (2019)</h3>
+            <ul>
+                <li>A frase "Eu sou o Homem de Ferro" foi adicionada no último minuto antes da edição final.</li>
+                <li>O filme superou Avatar em bilheteira, sendo o mais lucrativo de todos os tempos.</li>
+                <li>Chris Evans admitiu ter chorado ao ler o roteiro pela primeira vez.</li>
+            </ul>
+            
+        </div>
+    </div>
+
+    <!-- Card 4: Jurassic Park -->
+    <div class="curiosities-card">
+        <div class="curiosities-image">
+            <img src="https://upload.wikimedia.org/wikipedia/en/e/e7/Jurassic_Park_poster.jpg" alt="Jurassic Park Poster">
+        </div>
+        <div class="curiosities-content">
+            <h3>Jurassic Park (1993)</h3>
+            <ul>
+                <li>O icônico rugido do T-Rex foi criado combinando sons de elefantes, tigres e jacarés.</li>
+                <li>O filme revolucionou os efeitos especiais, especialmente os dinossauros animatrônicos.</li>
+                <li>Spielberg ficou tão impressionado com o dinossauro T-Rex que filmou a reação dos atores em tempo real.</li>
+            </ul>
+        
+        </div>
+    </div>
+
+    <!-- Card 5: Star Wars: O Império Contra-Ataca -->
+    <div class="curiosities-card">
+        <div class="curiosities-image">
+            <img src="https://br.web.img3.acsta.net/medias/nmedia/18/72/73/89/20535463.jpg" alt="Star Wars Poster">
+        </div>
+        <div class="curiosities-content">
+            <h3>Star Wars: O Império Contra-Ataca (1980)</h3>
+            <ul>
+                <li>A famosa linha "Eu sou seu pai" foi gravada sem que o próprio ator soubesse do grande segredo.</li>
+                <li>O Yoda foi inicialmente interpretado por um modelo de marionete antes de ser substituído por CGI.</li>
+                <li>A primeira cena filmada foi a de Han Solo e Chewbacca em Hoth, por conta da complexidade das locações.</li>
+            </ul>
+            
+        </div>
+    </div>
+
+    <!-- Card 6: O Senhor dos Anéis: O Retorno do Rei -->
+    <div class="curiosities-card">
+        <div class="curiosities-image">
+            <img src="https://br.web.img2.acsta.net/medias/nmedia/18/92/91/47/20224867.jpg" alt="The Lord of the Rings Poster">
+        </div>
+        <div class="curiosities-content">
+            <h3>O Senhor dos Anéis: O Retorno do Rei (2003)</h3>
+            <ul>
+                <li>O filme levou 20 minutos de filmagens para a famosa batalha no Portão Negro de Mordor.</li>
+                <li>A cena final, onde Frodo e Sam deixam a Terra-média, foi filmada em um local na Nova Zelândia.</li>
+                <li>Venceu 11 Oscars, igualando o recorde de Titanic e Ben-Hur.</li>
+            </ul>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="trailer-section">
+    <h2>Esse é o Trailer Mais Visto da História do Youtube !</h2>
+    <br>
+    <iframe src="https://www.youtube.com/embed/6ZfuNTqbHE8" title="Trailer de Vingadores: Guerra Infinita"></iframe>
+</section>
+
+<script>
+    function showResults() {
+        document.getElementById("results").style.display = "block";
+    }
+</script>
+
+
+<section class="form-container">
+    <h2>Deixe seu Feedback!</h2>
+    <form>
+        <label for="feedback">O que você achou desses filmes?</label>
+        <textarea id="feedback" name="feedback" rows="4" placeholder="Escreva aqui seu comentário..."></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+</section>
+
+<section class="social-media">
+    <h3>Siga-nos nas Redes Sociais:</h3>
+    <a href="https://www.facebook.com/">Facebook</a>
+    <a href="https://www.twitter.com/">Twitter</a>
+    <a href="https://www.instagram.com/">Instagram</a>
+</section>
+
+<footer>
+    <p>&copy; 2024 Sucessos de Bilheteira</p>
+</footer>
+
+<script>
+    const toggle = document.getElementById("mode-toggle");
+
+    toggle.addEventListener("change", () => {
+        if (toggle.checked) {
+            document.body.classList.remove("dark-mode");
+            document.body.classList.add("light-mode");
+        } else {
+            document.body.classList.remove("light-mode");
+            document.body.classList.add("dark-mode");
+        }
+    });
+   
+
+</script>
+
+</body>
+</html>
