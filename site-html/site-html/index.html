@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Clássico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s, color 0.3s; 
+        }
+
+      
+        .light-mode {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        
+        .dark-mode {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+        }
+
+        header {
+            background-color: #111;
+            color: #fff;
+            padding: 2em 0;
+            text-align: center;
+            border-bottom: 3px solid #444;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            letter-spacing: 3px;
+        }
+
+        nav {
+            margin-top: 1em;
+        }
+
+        nav a {
+            color: #bbb;
+            text-decoration: none;
+            margin: 0 1em;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0px 0px 5px #fff;
+        }
+
+      
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2em;
+        }
+
+        
+        .sidebar {
+            flex: 0.5;
+            min-width: 250px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            padding: 2em;
+            border-radius: 10px;
+            margin-right: 2em;
+            height: 430vh;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar a {
+            display: block;
+            color: #bbb;
+            text-decoration: none;
+            padding: 0.8em 0;
+            font-size: 1.2em;
+            border-bottom: 1px solid #444;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #fff;
+            text-shadow: 0 0 5px #fff;
+        }
+
+       
+        .content {
+            flex: 3;
+            background: linear-gradient(145deg, #141414, #222);
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: #fff;
+            margin-bottom: 1em;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            line-height: 1.8em;
+            color: #ccc;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 1.5em;
+            border-collapse: collapse;
+            font-size: 1.1em;
+            color: #ddd;
+        }
+
+        table th,
+        table td {
+            padding: 1em;
+            text-align: left;
+            border: 1px solid #444;
+        }
+
+        table th {
+            background-color: #222;
+            color: #fff;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #1a1a1a;
+        }
+
+        table tr:hover {
+            background-color: #333;
+        }
+
+       
+        .timeline {
+            margin-top: 3em;
+            padding: 2em;
+            background-color: #111;
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .timeline h3 {
+            font-size: 2em;
+            margin-bottom: 1em;
+        }
+
+        .timeline ul {
+            list-style-type: none;
+        }
+
+        .timeline li {
+            margin-bottom: 1em;
+        }
+
+        .timeline span {
+            font-weight: bold;
+            color: #e0b030;
+        }
+
+        .form-container {
+            margin-top: 2em;
+            padding: 2em;
+            background-color: #111;
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: #e0e0e0;
+        }
+
+        .form-container h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: #fff;
+            margin-bottom: 1em;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+            color: #ccc;
+        }
+
+        .form-container textarea {
+            width: 100%;
+            height: 100px;
+            padding: 1em;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-size: 1em;
+        }
+
+        .form-container button {
+            margin-top: 1em;
+            padding: 0.8em 1.5em;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-container button:hover {
+            background-color: #666;
+            color: #fff;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background-color: #111;
+            color: #bbb;
+            margin-top: 2em;
+            border-top: 3px solid #444;
+        }
+
+        footer p {
+            font-size: 0.9em;
+        }
+
+       
+        .toggle-container {
+            display: flex;
+            justify-content: flex-end;
+            padding: 1em;
+            margin-right: 2em;
+        }
+
+        .toggle-container input {
+            display: none;
+        }
+
+        .toggle-container label {
+            background-color: #333;
+            border-radius: 30px;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 60px;
+            height: 30px;
+            position: relative;
+        }
+
+        .toggle-container label:before {
+            content: '🌙';
+            color: #fff;
+            position: absolute;
+            left: 10px;
+            font-size: 18px;
+        }
+
+        .toggle-container label:after {
+            content: '🌞';
+            color: #fff;
+            position: absolute;
+            right: 10px;
+            font-size: 18px;
+        }
+
+        .toggle-container input:checked + label {
+            background-color: #e0b030;
+        }
+
+        .toggle-container input:checked + label:before {
+            left: 30px;
+            transition: 0.3s;
+        }
+
+        .toggle-container input:checked + label:after {
+            right: 30px;
+            transition: 0.3s;
+        }
+
+    </style>
+</head>
+<body class="dark-mode">
+
+<section class="toggle-container">
+    <input type="checkbox" id="mode-toggle" />
+    <label for="mode-toggle"></label>
+</section>
+
+<header>
+    <h1>Cinema Clássico</h1>
+    <nav>
+        <a href="index.html" target="_blank">Início</a>
+        <a href="bilheteria.html" target="_blank">Sucesso de Bilheteria</a>
+    </nav>
+</header>
+
+<aside class="container">
+   
+    <aside class="sidebar">
+        <a href="index.html">Clássicos</a>
+        <a href="bilheteria.html">Bilheteiras</a>
+    </aside>
+
+  
+    <header class="content">
+        <h2>Explore o Cinema Clássico</h2>
+        <p>Descubra os grandes clássicos e mergulhe na Era de Ouro de Hollywood. Aqui, você encontrará as obras que moldaram o cinema como o conhecemos.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Filme</th>
+                    <th>Ano</th>
+                    <th>Bilheteria</th>
+                    <th>Diretor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cidadão Kane</td>
+                    <td>1941</td>
+                    <td>$1.5 M</td>
+                    <td>Orson Welles</td>
+                </tr>
+                <tr>
+                    <td>O Mágico de Oz</td>
+                    <td>1939</td>
+                    <td>$3.0 M</td>
+                    <td>Victor Fleming</td>
+                </tr>
+                <tr>
+                    <td>Pinóquio</td>
+                    <td>1940</td>
+                    <td>$1.4 M</td>
+                    <td>Ben Sharpsteen</td>
+                </tr>
+                <tr>
+                    <td>Casablanca</td>
+                    <td>1942</td>
+                    <td>$4.0 M</td>
+                    <td>Michael Curtiz</td>
+                </tr>
+                <tr>
+                    <td>O Grande Ditador</td>
+                    <td>1940</td>
+                    <td>$5.0 M</td>
+                    <td>Charlie Chaplin</td>
+            </tbody>
+        </table>
+
+        <section class="timeline">
+            <h3>Linha do Tempo do Cinema</h3>
+            <header class="timeline-container">
+              
+                <header class="vertical-line"></header>
+                <ul>
+                    <li><span>1939:</span> O Mágico de Oz</li>
+                    <li><span>1939:</span> ...E o Vento Levou</li>
+                    <li><span>1941:</span> Cidadão Kane</li>
+                    <li><span>1942:</span> Casablanca</li>
+                    <li><span>1946:</span> A Felicidade Não Se Compra</li>
+                    <li><span>1948:</span> O Ladrão de Bicicletas</li>
+                    <li><span>1957:</span> Doze Homens e uma Sentença</li>
+                    <li><span>1960:</span> Psicose</li>
+                    <li><span>1962:</span> Lawrence da Arábia</li>
+                    <li><span>1968:</span> Era uma vez no Oeste</li>
+                    <li><span>1972:</span> O Poderoso Chefão</li>
+                    <li><span>1976:</span> Taxi Driver</li>
+                    <li><span>1977:</span> Guerra nas Estrelas</li>
+                    <li><span>1983:</span> Scarface</li>
+                    <li><span>1985:</span> De Volta Para o Futuro</li>
+                    <li><span>1985:</span> Clube dos Cinco</li>
+                    <li><span>1994:</span> Forrest Gump</li>
+                    <li><span>1999:</span> Clube da Luta</li>
+                </ul>
+        
+               
+                <figure class="timeline-images">
+                    <img src="https://br.web.img3.acsta.net/medias/nmedia/18/93/94/10/20287529.jpg" alt="O Magico de Oz">
+                    <img src="https://br.web.img3.acsta.net/medias/nmedia/18/90/95/72/20122043.jpg" alt="...E o Vento Levou">
+                    <img src="https://br.web.img3.acsta.net/medias/nmedia/00/02/56/56/aff.jpg" alt="Cidadão Kane">
+                    <img src="https://a-static.mlcdn.com.br/800x560/poster-cartaz-casablanca-b-pop-arte-poster/poparteskins2/15938499391/8ae3883f999705117f48a37c2a8a1876.jpeg" alt="Casablanca">
+                    <img src="https://br.web.img2.acsta.net/medias/nmedia/18/95/33/59/20397971.jpg" alt="A Felicidade Não Se Compra">
+                    <img src="https://br.web.img2.acsta.net/pictures/210/073/21007343_20130521200209704.jpg" alt="Ladrão de Bicicletas">
+                    <img src="https://br.web.img3.acsta.net/medias/nmedia/18/94/89/49/20363466.jpg" alt="Doze Homens e um Sentença">
+                    <img src="https://image.tmdb.org/t/p/original/lqTVfL68X937Gtd4rlgEmwiDDHI.jpg" alt="Psicose">
+                    <img src="https://br.web.img2.acsta.net/medias/nmedia/18/90/37/84/20093783.jpg" alt="Lawrence da Arabia">
+                    <img src="https://media.fstatic.com/5faXFPAl5fCUfqFkd8r6umezVAY=/322x478/smart/filters:format(webp)/media/movies/covers/2016/03/era-uma-vez-no-oeste_t447_DjgyWps.jpg" alt="Era Uma Vez No Oeste">
+                    <img src="https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/90/93/20/20120876.jpg" alt="O Poderoso Chefão">
+                    <img src="https://br.web.img3.acsta.net/r_1280_720/medias/nmedia/18/93/46/28/20258371.jpg" alt="Taxi Driver">]
+                    <img src="https://br.web.img2.acsta.net/medias/nmedia/18/91/98/26/20172772.jpg" alt="Guerra nas Estrelas">
+                    <img src="https://br.web.img3.acsta.net/pictures/210/485/21048559_20131010181109755.jpg" alt="Scarface">
+                    <img src="https://www.ucicinemas.com.br/Content/Upload/Filmes/Posters/10002/filme_10002.jpg" alt="De Volta Para o Futuro">
+                    <img src="https://br.web.img3.acsta.net/r_1280_720/img/86/c1/86c1c8f86f7ab85f68a8df064e03c7ff.jpg" alt="Clube dos Cinco">
+                    <img src="https://a-static.mlcdn.com.br/800x560/poster-cartaz-forrest-gump-o-contador-de-historias-pop-arte-poster/poparteskins2/15938513832/bafea6f811d8a13e4b96ff60065d7689.jpeg" alt="Forrest Gump">
+                    <img src="https://br.web.img3.acsta.net/medias/nmedia/18/90/95/96/20122166.jpg" alt="Clube da Luta">
+                    
+                </figure>
+            </header>
+        </section>
+        <section class="scene-selector">
+            <h3>Escolha uma Cena Icônica</h3>
+            <form id="scene-form">
+                <label for="movie-scene">Selecione um filme:</label>
+                <select id="movie-scene">
+                    <option value="oz">O Mágico de Oz (1939)</option>
+                    <option value="psycho">Psicose (1960)</option>
+                    <option value="godfather">Poderoso Chefão (1972)</option>
+                    <option value="starwars">Guerra nas Estrelas (1980)</option>
+                    <option value="rocky">Rocky(1979)</option>
+                    <option value="forrest">Forrest Gump (1994)</option>
+                    <option value="fightclub">Clube da Luta (1999)</option>
+                </select>
+                <button type="button" id="show-scene">Mostrar Cena</button>
+            </form>
+            <figure id="scene-display" class="scene-display">
+                <h4 id="scene-title"></h4>
+                <iframe id="scene-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+            </figure>
+        </section>
+        
+        <style>
+            .timeline-container {
+                display: flex;
+                position: relative;
+                padding: 2em 0;
+            }
+        
+            .vertical-line {
+                position: absolute;
+                left: 20px;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background-color: #e0b030;
+                border-radius: 2px;
+            }
+        
+            .timeline ul {
+                list-style: none;
+                padding-left: 50px;
+            }
+        
+            .timeline li {
+                margin-bottom: 2em;
+                position: relative;
+            }
+        
+            .timeline li span {
+                font-weight: bold;
+                color: #e0b030;
+            }
+        
+            .timeline li:before {
+                content: "";
+                position: absolute;
+                left: -30px;
+                top: 4px;
+                width: 12px;
+                height: 12px;
+                background-color: #e0b030;
+                border-radius: 50%;
+                border: 2px solid #111;
+            }
+        
+            .timeline-images {
+                display: flex;
+                flex-wrap: wrap;
+                margin-left: 50px;
+                gap: 1em;
+            }
+        
+            .timeline-images img {
+                width: 200px;
+                height: auto;
+            }
+        
+            .scene-selector {
+                margin-top: 2em;
+                padding: 2em;
+                background-color: #111;
+                border: 1px solid #444;
+                border-radius: 10px;
+                color: #e0e0e0;
+            }
+        
+            .scene-selector h3 {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.8em;
+                color: #fff;
+                margin-bottom: 1em;
+                text-shadow: 0 0 5px #fff;
+            }
+        
+            .scene-selector label {
+                display: block;
+                margin-top: 1em;
+                font-weight: bold;
+                color: #ccc;
+            }
+        
+            .scene-selector select {
+                width: 100%;
+                margin-top: 0.5em;
+                padding: 1em;
+                border: 1px solid #444;
+                border-radius: 5px;
+                background-color: #1a1a1a;
+                color: #fff;
+                font-size: 1em;
+            }
+        
+            .scene-selector button {
+                margin-top: 1em;
+                padding: 0.8em 1.5em;
+                background-color: #444;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 1em;
+                transition: all 0.3s;
+            }
+        
+            .scene-selector button:hover {
+                background-color: #666;
+                text-shadow: 0 0 5px #fff;
+            }
+        
+            .scene-display {
+                margin-top: 2em;
+                display: none;
+                text-align: center;
+            }
+        
+            .scene-display h4 {
+                color: #fff;
+                margin-bottom: 1em;
+            }
+        
+            .scene-display iframe {
+                border: none;
+                border-radius: 10px;
+            }
+        </style>
+        
+        <section class="form-container">
+    <h2>Deixe seu Feedback!</h2>
+    <form>
+        <label for="feedback">O que você achou desses filmes?</label>
+        <textarea id="feedback" name="feedback" rows="4" placeholder="Escreva aqui seu comentário..."></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+</section>
+        
+        <footer>
+            <p>© 2024 Cinema Clássico - Todos os direitos reservados.</p>
+        </footer>
+        
+        <script>
+            document.getElementById('show-scene').addEventListener('click', function () {
+                const scene = document.getElementById('movie-scene').value;
+                const display = document.getElementById('scene-display');
+                const title = document.getElementById('scene-title');
+                const video = document.getElementById('scene-video');
+        
+               
+                const scenes = {
+    oz: {
+        title: "O Mágico de Oz - Além do Arco Ìris",
+        url: "https://www.youtube.com/embed/PSZxmZmBfnU"
+    },
+
+    psycho: {
+        title: "Psicose - Cena do Banheiro",
+        url: "https://www.youtube.com/embed/sHNyhmb9OkY"
+    },
+
+    godfather: {
+        title: "O Poderoso Chefão - A Cabeça de Cavalo",
+        url: "https://www.youtube.com/embed/VC1_tdnZq1A"
+    },
+
+    starwars: {
+        title: "Guerra nas Estrelas - Eu sou seu Pai",
+        url: "https://www.youtube.com/embed/_lOT2p_FCvA"
+    },
+
+    rocky: {
+        title: "Rocky - Subida nas Escadas",
+        url: "https://www.youtube.com/embed/phN4xAAl8DU"
+    },
+
+    forrest: {
+        title: "Forrest Gump - Corre, Forrest",
+        url: "https://www.youtube.com/embed/bSMxl1V8FSg?start=63"
+    },
+
+    fightclub: {
+        title: "Clube da Luta - A Revelação de Tyler",
+        url: "https://www.youtube.com/embed/eCKRI2wEw7I?start=67"
+    }
+};
+
+               
+                if (scenes[scene]) {
+                    title.textContent = scenes[scene].title;
+                    video.src = scenes[scene].url;
+                    display.style.display = 'block';
+                }
+            });
+        </script>
+        <script>
+            document.getElementById('mode-toggle').addEventListener('change', function () {
+                document.body.classList.toggle('light-mode');
+                document.body.classList.toggle('dark-mode');
+            });
+        </script>
+        
+</body>
+</html>
